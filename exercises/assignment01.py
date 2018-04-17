@@ -1,13 +1,30 @@
+#!/usr/bin/python
+
+################################## Getting started ############################################
 import tensorflow as tf
-x = tf . constant ('Hello world !')
-y1 = tf . constant (2 , dtype = tf . int32 )
-y2 = tf . constant (1 , dtype = tf . int32 )
-z = y1 + y2
+import numpy as np
 
 sess = tf . Session ()
-x_eval = sess . run ( x )
-print ( x_eval )
-z_eval = sess . run ( z )
-print ( z_eval )
-y1_eval , y2_eval = sess . run ([ y1 , y2 ])
-print ( y1_eval , y2_eval )
+################################## Task 2 ############################################
+
+
+def task2_fx(mat, x, b):
+    const_A = tf.constant(mat, dtype = tf.float32, shape=[2,2])
+    const_x = tf.constant(x, dtype = tf.float32, shape=[2,1])
+    const_b = tf.constant(b, dtype = tf.float32, shape=[2,1])
+    return  tf.matmul(const_A ,const_x) + const_b
+
+
+def task2_gx(y_list):
+    const_ylist = tf.constant(y_list, dtype=tf.float32)
+    return tf.sin(const_ylist)
+
+op_fx = task2_fx([1,2,3,4], 2, 5)
+print("Task2 fx: ", sess.run(op_fx))
+
+op_gx = task2_gx([1,2,3,4])
+print("Task2 gx: ", sess.run(op_gx))
+
+summary_writer = tf.summary.FileWriter(logdir='./', graph=sess.graph)
+
+
