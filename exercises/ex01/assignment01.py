@@ -21,7 +21,7 @@ op_fx = task2_fx([1,2,3,4], 2, 5)
 op_gx = task2_gx([1,2,3,4])
 
 sess = tf.Session ()
-summary_writer = tf.summary.FileWriter(logdir='./', graph=sess.graph)
+summary_writer = tf.summary.FileWriter(logdir='dadarama/', graph=sess.graph)
 print("Task2 fx: ", sess.run(op_fx))
 print("Task2 gx: ", sess.run(op_gx))
 
