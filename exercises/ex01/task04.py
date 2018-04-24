@@ -18,13 +18,13 @@ def show_cameraman():
     img=Image.open('cameraman.png')
     return np.array(img).astype(np.float32)/255.0
 
-def apply_gaussian_filter():
+def apply_gaussian_filter(sigma):
     image=Image.open('cameraman.png')
     image_tf = tf.cast(image, tf.float32)
 
-    gaussian_filter = tf.constant(get_gaussian_kernel(3))
-    image_resized = tf.reshape(image_tf, [1,256,256,1])
-    gaussian_filter_resized = tf.reshape(gaussian_filter, [19,19,1,1])
+    gaussian_filter = tf.constant(get_gaussian_kernel(sigma))
+    image_resized = tf.reshape(image_tf, [1,image_tf.shape[0], image_tf.shape[1],1])
+    gaussian_filter_resized = tf.reshape(gaussian_filter, [gaussian_filter.shape[0],gaussian_filter.shape[1],1,1])
     op = tf.nn.conv2d(image_resized, gaussian_filter_resized, strides=[1, 1, 1, 1], padding='SAME')
     img = sess.run(op)
     return  np.reshape(img, [256,256])
@@ -37,9 +37,8 @@ def plot_before_after(img_before, img_after):
     plt.imshow(img_after)
     plt.show()
 
-#anika-grimm@web.de
 img_before = show_cameraman()
-img_after = apply_gaussian_filter()
+img_after = apply_gaussian_filter(sigma=10)
 
 plot_before_after(img_before, img_after)
 
