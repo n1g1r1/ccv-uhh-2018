@@ -92,7 +92,7 @@ correct_prediction=tf.equal(labels,predictions)
 accuracy=tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
 
  # Define an optimizer and training op
-optimizer=tf.train.GradientDescentOptimizer(learning_rate=0.001)
+optimizer=tf.train.GradientDescentOptimizer(learning_rate=0.1)
 train_op=optimizer.minimize(loss)
 
 
@@ -115,6 +115,5 @@ with tf.Session() as sess:
         batch_loss,batch_acc,_=sess.run([loss,accuracy,train_op],feed_dict={x:batch_images,labels:batch_labels})
         print('Batch'+str(b)+',loss: ' +str(batch_loss)+ ', accuracy: '+str(batch_acc))
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # show_the_first_n_elements(10)
-    print("hello")
